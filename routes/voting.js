@@ -51,6 +51,19 @@ exports.viewPollById = function(req, res) {
     })
 }
 
+exports.addOption = function(req, res) {
+    Promise.coroutine(function *() {
+        var request = req.body;
+        console.log("request is in addOption - ",JSON.stringify(request));
+
+        yield addNewOptionInPoll(request);
+
+        return responses.actionCompleteResponse(res,"","");
+    })().catch(function(error) {
+        return responses.sendError(res,error,{});
+    })
+}
+
 exports.vote = function(req, res) {
     Promise.coroutine(function *() {
         var request = req.body;
@@ -125,6 +138,7 @@ var updateVote = function(request) {
             return reject("Invalid poll id");
         }
 
+        console.log("typeof request.pollId ",typeof request.pollId);
         obj.query = {
             _id       : request.pollId,
             isActive  : 1,
@@ -144,6 +158,46 @@ var updateVote = function(request) {
 
             if(userResponse.nModified == 0) {
                 return reject("You cann't vote");
+            }
+            return resolve();
+        }).catch(function(error) {
+            return reject(error)
+        })
+    })
+}
+
+
+var addNewOptionInPoll = function(request) {
+    console.log("request is - ",request);
+    return new Promise(function(resolve, reject) {
+        var obj = {};
+        obj.collectionName = "poll";
+
+        try {
+            request.pollId = new ObjectID(request.pollId)
+        } catch(e) {
+            return reject("Invalid poll id");
+        }
+
+        console.log("typeof request.pollId ",typeof request.pollId);
+        obj.query = {
+            _id       : request.pollId,
+            isActive  : 1,
+        };
+
+        obj.update = {
+            $push: { "options":{name: request.name,voteCount:0} }
+        }
+
+        console.log("obj is - ",obj);
+        baseQuery.updateData(obj).then(function(userResponse) {
+            console.log("Response is + ",userResponse)
+            if(userResponse.n == 0) {
+                return reject("Poll is not active")
+            }
+
+            if(userResponse.nModified == 0) {
+                return reject("You cann't add options");
             }
             return resolve();
         }).catch(function(error) {
@@ -172,7 +226,7 @@ var getPollById = function(pollId) {
 
         baseQuery.readData(obj).then(function(userResponse) {
             console.log("Response is + ",userResponse)
-            return resolve(userResponse);
+            return resolve(userResponse[0]);
         }).catch(function(error) {
             return reject(error)
         })

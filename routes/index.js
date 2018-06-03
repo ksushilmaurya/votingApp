@@ -16,7 +16,8 @@ router.post('/createPoll',auth.validateUser, voting.createPoll);
 router.post('/listPoll',auth.validateUser, voting.listPoll);
 router.post('/viewPollById',auth.validateUser, voting.viewPollById);
 router.post('/removePoll',auth.validateUser, voting.removePoll);
-router.post('/vote',auth.validateUser, voting.vote)
+router.post('/vote',auth.validateUser, voting.vote);
+router.post('/addOption',auth.validateUser, voting.addOption)
 
 
 
