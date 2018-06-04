@@ -1,0 +1,23 @@
+<br>
+
+    <h2>{{pollDetails.title}}</h2>
+
+    <h4>I would like to vote for</h4>
+
+    <form>
+        <select ng-model="selectedName" class="selectpicker">
+            <option value="">&#45;&#45;Select&#45;&#45;</option>
+            <option ng-repeat="d in optionsArray">{{d.name}}</option>
+        </select></br></br>
+        <button type="button" ng-click="vote()">Vote</button>
+    </form>
+
+    <form novalidate>
+        <h3>Don't like existing option? Create custom</h3>
+        Custom option name:<br>
+        <input type="text" ng-model="newOption"><br><br>
+        <button ng-click="addOption()">Add</button>
+    </form>
+
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</h1>

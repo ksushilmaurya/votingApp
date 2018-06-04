@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Voting App</title>
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body ng-app="votingApp">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="nav">
+                <li><a href="#Login"> Login </a></li>
+                <li><a href="#Home"> Voting Home </a></li>
+                <li><a href="#Logout"> Logout </a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div ng-view></div>
+        </div>
+
+    </div>
+
+</div><!-- /.container -->
+
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="app.js"></script>
+<script src="./controllers/pollingController.js"></script>
+<script src="./controllers/loginController.js"></script>
+<script src="./controllers/pollingDetailsController.js"></script>
+<script src="./controllers/logoutController.js"></script>
+
+</body>
+</html>

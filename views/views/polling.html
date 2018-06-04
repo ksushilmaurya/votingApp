@@ -1,0 +1,46 @@
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<div>
+
+    <h2>Make a new Poll</h2>
+    <form novalidate>
+        Title:<br>
+        <input type="text" ng-model="poll.title"><br>
+        Options (Seperated by line):<br>
+        <textarea rows="4" ng-model="poll.options"> </textarea>
+        <br><br>
+        <button ng-click="createPoll()">Create</button>
+    </form>
+
+
+    <h2>Polls List</h2>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>View</th>
+            <th>Remove</th>
+        </tr>
+        <tr ng-repeat="poll in pollList">
+            <td>{{poll.title}}</td>
+            <td><button type="button"> <a href="#/Poll/{{poll._id}}">View</a> </button></td>
+            <td><button type="button" ng-click="removePoll(poll._id)">Remove</button></td>
+        </tr>
+    </table>
+</div>
