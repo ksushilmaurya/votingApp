@@ -14,6 +14,26 @@ var app = express();
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'pug');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = 3000;
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
 
 app.use(cors());
 app.use(logger('dev'));
